@@ -28,8 +28,10 @@ public:
 
     int vertexDegree(int v, Color color) const;
 
+    // debug helper
     std::string coloringMatrixToString() const;
 
+    // debug helper
     std::string vertexListToString() const;
 
 
