@@ -34,7 +34,9 @@ public:
     // debug helper
     std::string vertexListToString() const;
 
-    //debug helper
+    // debug helper
+    // produces a very irregular looking graph
+    // TODO investigate how to resolve that
     std::string toDot() const;
 
 
