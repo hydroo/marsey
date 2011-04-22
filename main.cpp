@@ -1,5 +1,4 @@
 #include "graph.hpp"
-
 #include "debug.hpp"
 
 #include <iostream>
