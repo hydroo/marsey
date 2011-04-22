@@ -10,6 +10,7 @@ using std::cerr;
 using std::cout;
 using std::endl;
 using std::ostringstream;
+using std::set;
 using std::string;
 
 
@@ -67,6 +68,26 @@ int Graph::vertexDegree(int v1, Color color) const {
     }
 
     return sum;
+}
+
+
+set<int> Graph::completeSubGraph(int k, Color color) const {
+
+    ASSERT(color < colorCount);
+
+    set<int> ret;
+
+    for (int v = 0; v < vertexCount; v += 1) {
+        if (vertexDegree(v, color) >= k-1) {
+            ret.insert(v);
+
+            if (int(ret.size()) == k) {
+                return ret;
+            }
+        }
+    }
+
+    return set<int>();
 }
 
 

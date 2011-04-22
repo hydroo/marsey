@@ -3,11 +3,13 @@
 
 
 #include <cstdint>
+#include <set>
 #include <string>
 
 
-#define COLORCOUNT 3
-#define VERTEXCOUNT 6
+#define COLORCOUNT 2
+#define VERTEXCOUNT 4
+
 
 static_assert(COLORCOUNT >= 2 && COLORCOUNT <= 0xff, "COLORCOUNT >= 2 && COLORCOUNT <= 0xff");
 static_assert(VERTEXCOUNT <= 50, "VERTEXCOUNT <= 50");
@@ -28,6 +30,10 @@ public:
 
     int vertexDegree(int v, Color color) const;
 
+    // returns vertizes of thesub graph
+    std::set<int> completeSubGraph(int k, Color color) const;
+
+
     // debug helper
     std::string coloringMatrixToString() const;
 
@@ -38,7 +44,6 @@ public:
     // produces a very irregular looking graph
     // TODO investigate how to resolve that
     std::string toDot() const;
-
 
 private:
 
