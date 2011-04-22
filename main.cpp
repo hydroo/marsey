@@ -35,8 +35,11 @@ int findR(const std::vector<int>& p) {
 
 
 // generates 2^(n(n-1)/2) colorings including variants which are equivalent for the problem
-// 2^((n-1)(n-2)/2) would be correct I think
-// where n = vertexCount
+// 2^((n-1)(n-2)/2) would be correct I think (*)
+// given (*) is correct, this means that we are doing 2^(2*n-2) times the work
+// that is necessary (incredibly much)
+//
+// n := vertexCount
 bool coloringsRecursive(const Graph& graph, int currentEdge, const std::vector<int>& p, uint64_t *count) {
 
     if (currentEdge == graph.edgeCount()) {
