@@ -35,6 +35,9 @@ int findR(const std::vector<int>& p) {
 }
 
 
+// generates 2^(n(n-1)/2) colorings including variants which are equivalent for the problem
+// 2^((n-1)(n-2)/2) would be correct I think
+// where n = vertexCount
 bool coloringsRecursive(const Graph& graph, int currentEdge, const std::vector<int>& p, uint64_t *count) {
 
     if (currentEdge == graph.edgeCount()) {
@@ -123,28 +126,6 @@ int main(int argc, char** argv) {
         cout << findR(*p) << endl;
     }
 
-
-    //Graph graph;
-
-    //graph.setEdgeColor(1,0,1);
-    //graph.setEdgeColor(1,2,1);
-    //graph.setEdgeColor(0,2,1);
-    ////graph.setEdgeColor(4,3,1);
-    ////graph.setEdgeColor(5,0,2);
-    ////graph.setEdgeColor(5,4,1);
-
-    //cout << "coloring matrix:" << endl;
-    //cout << graph.coloringMatrixToString() << endl;
-
-    //cout << "vertex list:" << endl;
-    //cout << graph.vertexListToString() << endl;
-
-    //std::set<int> kn = graph.completeSubgraph(3,1);
-
-    //for (auto i = kn.begin(); i != kn.end(); ++i) {
-    //    cout << *i << ", ";
-    //}
-    //cout << endl;
 
     //std::ofstream dotFile("test.dot");
     //dotFile << graph.toDot();
