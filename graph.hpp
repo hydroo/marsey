@@ -24,7 +24,7 @@ public:
 
     // v1 vert,v2 horiz
     Color edgeColor(int v1, int v2) const;
-    void setEdgeColor(int v1, int v2, Color c);
+    void setEdgeColor(int v1, int v2, Color color);
 
     int vertexDegree(int v, Color color) const;
 

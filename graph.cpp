@@ -38,9 +38,9 @@ Color Graph::edgeColor(int v1, int v2) const {
 }
 
 
-void Graph::setEdgeColor(int v1, int v2, Color c) {
+void Graph::setEdgeColor(int v1, int v2, Color color) {
 
-    ASSERT(c < colorCount);
+    ASSERT(color < colorCount);
 
     //could possibly leave that out and make it an assertion
     if (v1 < v2) {
@@ -51,7 +51,7 @@ void Graph::setEdgeColor(int v1, int v2, Color c) {
 
     // note: index calculation has optimization potential (hash v2 -> - ((v2+1)*(v2+2)/2)
     int index = v2*vertexCount + v1 - ((v2+1)*(v2+2)/2);
-    coloringMatrix[index] = c;
+    coloringMatrix[index] = color;
 
 }
 
@@ -157,7 +157,7 @@ std::string Graph::toDot() const {
     o << "graph G {";
 
     for (int v = 0; v < vertexCount; v += 1) {
-        o << v << " [shape=point]" << endl;
+        o << v << " [shape=circle]" << endl;
     }
 
     for (int v1 = 0; v1 < vertexCount; v1 += 1) {
