@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-
+#ifdef DEBUG
 #define ASSERT(expression) \
     if ((expression) == false) { \
         std::cerr << "\e[0;31m\033[1m" \
@@ -14,6 +14,9 @@
                 << ": \"" << #expression << "\"" << std::endl; \
         std::abort(); \
     }
+#else
+#define ASSERT(expression)
+#endif
 
 
 #endif /* DEBUG_HPP */
