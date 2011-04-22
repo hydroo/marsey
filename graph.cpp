@@ -56,8 +56,17 @@ void Graph::setEdgeColor(int w, int v, Color c) {
 }
 
 
-int Graph::vertexDegree(int v, Color color) const {
-    return 0;
+int Graph::vertexDegree(int v1, Color color) const {
+
+    int sum = 0;
+
+    for (int v2 = 0; v2 < vertexCount; v2 += 1) {
+        if (v2 != v1 && edgeColor(v1, v2) == color) {
+            sum += 1;
+        }
+    }
+
+    return sum;
 }
 
 
@@ -102,3 +111,42 @@ std::string Graph::coloringMatrixToString() const {
 
     return o.str();
 }
+
+
+std::string Graph::vertexListToString() const {
+
+    ostringstream o;
+
+    int vertexWidth = (2 + (log10(vertexCount-1) > log10(colorCount-1) ?
+            log10(vertexCount-1) : log10(colorCount-1)));
+
+    for (int v1 = 0; v1 < vertexCount; v1 += 1) {
+
+        o.width(vertexWidth);
+        o << v1 << ": [";
+
+        for (int v2 = 0; v2 < vertexCount; v2 += 1) {
+            if (v1 == v2) { continue; }
+            o << "\e[0;3" << (int(edgeColor(v1,v2)) + 1) << "m";
+            o.width(vertexWidth);
+            o << v2;
+            o << "\e[0;30m";
+            o << ", ";
+        }
+
+        o << "] ";
+
+        o << "{";
+        for (Color c = 0; c < colorCount; c += 1) {
+            o << "\e[0;3" << int(c)+1 << "m";
+            o.width(vertexWidth);
+            o << int(c) << ":" << vertexDegree(v1,c);
+            o << "\e[0;30m";
+            o << ", ";
+        }
+        o << "}" << endl;
+    }
+
+    return o.str();
+}
+

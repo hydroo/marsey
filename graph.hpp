@@ -6,7 +6,7 @@
 #include <string>
 
 
-#define COLORCOUNT 2
+#define COLORCOUNT 3
 #define VERTEXCOUNT 6
 
 static_assert(COLORCOUNT >= 2 && COLORCOUNT <= 0xff, "COLORCOUNT >= 2 && COLORCOUNT <= 0xff");
@@ -25,9 +25,13 @@ public:
     // w vert,v horiz
     Color edgeColor(int w, int v) const;
     void setEdgeColor(int w, int v, Color c);
+
     int vertexDegree(int v, Color color) const;
 
     std::string coloringMatrixToString() const;
+
+    std::string vertexListToString() const;
+
 
 private:
 
