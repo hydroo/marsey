@@ -7,12 +7,6 @@
 #include <string>
 
 
-#define COLORCOUNT 2
-#define VERTEXCOUNT 4
-
-
-static_assert(COLORCOUNT >= 2 && COLORCOUNT <= 0xff, "COLORCOUNT >= 2 && COLORCOUNT <= 0xff");
-static_assert(VERTEXCOUNT <= 50, "VERTEXCOUNT <= 50");
 
 typedef uint8_t Color;
 
@@ -21,17 +15,23 @@ class Graph {
 
 public:
 
-    Graph();
+    Graph(int _vertexCount, int _colorCount);
     Graph(const Graph&);
+
+    int vertexCount() const;
+    int edgeCount() const;
+    int colorCount() const;
 
     // v1 vert,v2 horiz
     Color edgeColor(int v1, int v2) const;
     void setEdgeColor(int v1, int v2, Color color);
+    // dirty
+    void setEdgeColor(int index, Color color);
 
     int vertexDegree(int v, Color color) const;
 
     // returns vertizes of thesub graph
-    std::set<int> completeSubGraph(int k, Color color) const;
+    std::set<int> completeSubgraph(int k, Color color) const;
 
 
     // debug helper
@@ -47,11 +47,11 @@ public:
 
 private:
 
-    static const int vertexCount = VERTEXCOUNT;
-    static const int colorCount = COLORCOUNT;
-    static const int coloringMatrixSize = vertexCount*(vertexCount - 1)/2;
+    int m_vertexCount;
+    int m_colorCount;
+    int m_coloringMatrixSize;
 
-    Color coloringMatrix[coloringMatrixSize];
+    Color *coloringMatrix;
 
 };
 
