@@ -3,6 +3,7 @@
 #include "debug.hpp"
 
 #include <iostream>
+#include <fstream>
 
 using std::cout;
 using std::endl;
@@ -23,6 +24,11 @@ int main(int argc, char** argv) {
     cout << graph.coloringMatrixToString() << endl;
     cout << "vertex list:" << endl;
     cout << graph.vertexListToString() << endl;
+
+    std::ofstream dotFile("test.dot");
+    dotFile << graph.toDot();
+    dotFile.close();
+
 
     return 0;
 }

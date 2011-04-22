@@ -34,6 +34,9 @@ public:
     // debug helper
     std::string vertexListToString() const;
 
+    //debug helper
+    std::string toDot() const;
+
 
 private:
 

@@ -150,3 +150,24 @@ std::string Graph::vertexListToString() const {
     return o.str();
 }
 
+
+std::string Graph::toDot() const {
+    ostringstream o;
+
+    o << "graph G {";
+
+    for (int v = 0; v < vertexCount; v += 1) {
+        o << v << " [shape=point]" << endl;
+    }
+
+    for (int v1 = 0; v1 < vertexCount; v1 += 1) {
+        for (int v2 = v1+1; v2 < vertexCount; v2 += 1) {
+            o << v1 << " -- " << v2 << " [color=\"/set19/" << int(edgeColor(v1,v2))+1 << "\"];" << endl;
+        }
+    }
+
+    o << "}";
+
+    return o.str();
+}
+
