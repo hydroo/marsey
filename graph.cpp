@@ -31,7 +31,7 @@ Color Graph::edgeColor(int w, int v) const {
         v = tmp;
     }
 
-    // note: index calculation has optimization potential (hash w -> - (w*(w+1)/2)
+    // note: index calculation has optimization potential (hash v -> - ((v+1)*(v+2)/2)
     int index = v*vertexCount + w - ((v+1)*(v+2)/2);
     return coloringMatrix[index];
 
@@ -49,7 +49,7 @@ void Graph::setEdgeColor(int w, int v, Color c) {
         v = tmp;
     }
 
-    // note: index calculation has optimization potential (hash w -> - (w*(w+1)/2)
+    // note: index calculation has optimization potential (hash v -> - ((v+1)*(v+2)/2)
     int index = v*vertexCount + w - ((v+1)*(v+2)/2);
     coloringMatrix[index] = c;
 
