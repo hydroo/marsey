@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
     graph.setEdgeColor(5,0,2);
     graph.setEdgeColor(5,4,1);
 
-    cout << "adjacency matrix:" << endl;
+    cout << "coloring matrix:" << endl;
     cout << graph.coloringMatrixToString() << endl;
     cout << "vertex list:" << endl;
     cout << graph.vertexListToString() << endl;

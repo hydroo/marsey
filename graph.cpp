@@ -22,35 +22,35 @@ Graph::Graph(const Graph&) {
 }
 
 
-Color Graph::edgeColor(int w, int v) const {
+Color Graph::edgeColor(int v1, int v2) const {
 
     //could possibly leave that out and make it an assertion
-    if (w < v) {
-        int tmp = w;
-        w = v;
-        v = tmp;
+    if (v1 < v2) {
+        int tmp = v1;
+        v1 = v2;
+        v2 = tmp;
     }
 
-    // note: index calculation has optimization potential (hash v -> - ((v+1)*(v+2)/2)
-    int index = v*vertexCount + w - ((v+1)*(v+2)/2);
+    // note: index calculation has optimization potential (hash v2 -> - ((v2+1)*(v2+2)/2)
+    int index = v2*vertexCount + v1 - ((v2+1)*(v2+2)/2);
     return coloringMatrix[index];
 
 }
 
 
-void Graph::setEdgeColor(int w, int v, Color c) {
+void Graph::setEdgeColor(int v1, int v2, Color c) {
 
     ASSERT(c < colorCount);
 
     //could possibly leave that out and make it an assertion
-    if (w < v) {
-        int tmp = w;
-        w = v;
-        v = tmp;
+    if (v1 < v2) {
+        int tmp = v1;
+        v1 = v2;
+        v2 = tmp;
     }
 
-    // note: index calculation has optimization potential (hash v -> - ((v+1)*(v+2)/2)
-    int index = v*vertexCount + w - ((v+1)*(v+2)/2);
+    // note: index calculation has optimization potential (hash v2 -> - ((v2+1)*(v2+2)/2)
+    int index = v2*vertexCount + v1 - ((v2+1)*(v2+2)/2);
     coloringMatrix[index] = c;
 
 }
@@ -79,9 +79,7 @@ std::string Graph::coloringMatrixToString() const {
 
 
     // header
-    for (int i = 0; i < vertexWidth; i += 1) {
-        o << " ";
-    }
+    for (int i = 0; i < vertexWidth; i += 1) { o << " "; }
 
     for (int v = 0; v < vertexCount; v += 1) {
         o.width(vertexWidth);
@@ -92,17 +90,17 @@ std::string Graph::coloringMatrixToString() const {
 
 
     //body
-    for (int w = 0; w < vertexCount; w += 1) {
+    for (int v1 = 0; v1 < vertexCount; v1 += 1) {
 
         o.width(vertexWidth);
-        o << w ;
+        o << v1 ;
 
 
-        for (int v = 0; v < w; v += 1) {
+        for (int v2 = 0; v2 < v1; v2 += 1) {
             // bash coloring
-            o << "\e[0;3" << (int(edgeColor(v,w)) + 1) << "m";
+            o << "\e[0;3" << (int(edgeColor(v1,v2)) + 1) << "m";
             o.width(vertexWidth);
-            o << int(edgeColor(v,w));
+            o << int(edgeColor(v1,v2));
             o << "\e[0;30m";
         }
 
@@ -117,13 +115,13 @@ std::string Graph::vertexListToString() const {
 
     ostringstream o;
 
-    int vertexWidth = (2 + (log10(vertexCount-1) > log10(colorCount-1) ?
-            log10(vertexCount-1) : log10(colorCount-1)));
+    int vertexWidth = 2 + log10(vertexCount-1);
+    int colorWidth = 2 + log10(colorCount-1);
 
     for (int v1 = 0; v1 < vertexCount; v1 += 1) {
 
         o.width(vertexWidth);
-        o << v1 << ": [";
+        o << v1 << ": vertizes: [";
 
         for (int v2 = 0; v2 < vertexCount; v2 += 1) {
             if (v1 == v2) { continue; }
@@ -134,13 +132,15 @@ std::string Graph::vertexListToString() const {
             o << ", ";
         }
 
-        o << "] ";
+        o << "], ";
 
-        o << "{";
+        o << " degree by color: {";
         for (Color c = 0; c < colorCount; c += 1) {
             o << "\e[0;3" << int(c)+1 << "m";
             o.width(vertexWidth);
-            o << int(c) << ":" << vertexDegree(v1,c);
+            o << int(c) << ":";
+            o.width(colorWidth);
+            o << vertexDegree(v1,c);
             o << "\e[0;30m";
             o << ", ";
         }

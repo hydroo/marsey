@@ -22,9 +22,9 @@ public:
     Graph();
     Graph(const Graph&);
 
-    // w vert,v horiz
-    Color edgeColor(int w, int v) const;
-    void setEdgeColor(int w, int v, Color c);
+    // v1 vert,v2 horiz
+    Color edgeColor(int v1, int v2) const;
+    void setEdgeColor(int v1, int v2, Color c);
 
     int vertexDegree(int v, Color color) const;
 
