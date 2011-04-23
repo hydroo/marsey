@@ -37,7 +37,7 @@ int findR(const std::vector<int>& p) {
 // generates 2^(n(n-1)/2) colorings including variants which are equivalent
 // (isomorphism, inverse coloring, ?more?) for the problem
 // 2^((n-1)(n-2)/2) would be correct I think (*)
-// given (*) is correct, this means that we are doing 2^(2*n-2) times the work
+// given (*) is correct, this means that we are doing 2^(n-1) times the work
 // that is necessary (incredibly much)
 //
 // n := vertexCount
