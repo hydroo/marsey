@@ -2,6 +2,7 @@
 
 #include "debug.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <cstring>
 #include <sstream>
@@ -56,42 +57,37 @@ int Graph::colorCount() const {
 
 Color Graph::edgeColor(int v1, int v2) const {
 
-    //could possibly leave that out and make it an assertion
-    if (v1 < v2) {
-        int tmp = v1;
-        v1 = v2;
-        v2 = tmp;
-    }
+    ASSERT(v1 >= 0 && v1 < m_vertexCount);
+    ASSERT(v2 >= 0 && v2 < m_vertexCount);
 
-    // note: index calculation has optimization potential (hash v2 -> - ((v2+1)*(v2+2)/2)
-    int index = v2*m_vertexCount + v1 - ((v2+1)*(v2+2)/2);
+    int index = edgeIndexFromVertexIndizes(v1,v2);
+
     return coloringMatrix[index];
-
 }
 
 
 void Graph::setEdgeColor(int v1, int v2, Color color) {
 
+    ASSERT(v1 >= 0 && v1 < m_vertexCount);
+    ASSERT(v2 >= 0 && v2 < m_vertexCount);
     ASSERT(color < m_colorCount);
 
-    //could possibly leave that out and make it an assertion
-    if (v1 < v2) {
-        int tmp = v1;
-        v1 = v2;
-        v2 = tmp;
-    }
+    int index = edgeIndexFromVertexIndizes(v1,v2);
 
-    // note: index calculation has optimization potential (hash v2 -> - ((v2+1)*(v2+2)/2)
-    int index = v2*m_vertexCount + v1 - ((v2+1)*(v2+2)/2);
     coloringMatrix[index] = color;
-
 }
 
-void Graph::setEdgeColor(int index, Color color) {
-    coloringMatrix[index] = color;
+void Graph::setEdgeColor(int edgeIndex, Color color) {
+
+    ASSERT(edgeIndex >= 0 && edgeIndex < m_edgeCount);
+
+    coloringMatrix[edgeIndex] = color;
 }
 
 int Graph::vertexDegree(int v1, Color color) const {
+
+    ASSERT(v1 >= 0 && v1 < m_vertexCount);
+    ASSERT(color < m_colorCount);
 
     int sum = 0;
 
@@ -107,6 +103,7 @@ int Graph::vertexDegree(int v1, Color color) const {
 
 set<int> Graph::completeSubgraph(int k, Color color) const {
 
+    ASSERT(k >= 1 && k <= m_vertexCount);
     ASSERT(color < m_colorCount);
 
     set<int> ret;
@@ -218,3 +215,16 @@ std::string Graph::toDot() const {
     return o.str();
 }
 
+
+int Graph::edgeIndexFromVertexIndizes(int v1, int v2) const {
+
+    // currently duplicate, but I leave the assertions in
+    // in case I forget to add them in later code
+    ASSERT(v1 >= 0 && v1 < m_vertexCount);
+    ASSERT(v2 >= 0 && v2 < m_vertexCount);
+
+    if (v1 < v2) { std::swap(v1,v2); }
+
+    // note: index calculation has optimization potential (hash v2 -> - ((v2+1)*(v2+2)/2)
+    return v2*m_vertexCount + v1 - ((v2+1)*(v2+2)/2);
+}

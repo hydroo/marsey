@@ -18,7 +18,7 @@ int findR(const std::vector<int>& p) {
 
     int colorCount = p.size();
 
-    for (int vertexCount = 0; ; vertexCount += 1) {
+    for (int vertexCount = 1; ; vertexCount += 1) {
         bool hasCompleteSubGraph;
 
         Graph graph(vertexCount, colorCount);
@@ -48,6 +48,11 @@ bool coloringsRecursive(const Graph& graph, int currentEdge, const std::vector<i
         *count += 1;
 
         for (int i = 0; i < int(p.size()); i += 1) {
+
+            if (graph.vertexCount() < p[i]) {
+                continue;
+            }
+
             auto completeSubgraph = graph.completeSubgraph(p[i],i);
             if (completeSubgraph != std::set<int>()) {
 

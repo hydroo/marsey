@@ -25,8 +25,8 @@ public:
     // v1 vert,v2 horiz
     Color edgeColor(int v1, int v2) const;
     void setEdgeColor(int v1, int v2, Color color);
-    // dirty
-    void setEdgeColor(int index, Color color);
+    // dirty (because it reveals implementation detail, and no matching other functions exist)
+    void setEdgeColor(int edgeIndex, Color color);
 
     int vertexDegree(int v, Color color) const;
 
@@ -44,6 +44,10 @@ public:
     // produces a very irregular looking graph
     // TODO investigate how to resolve that
     std::string toDot() const;
+
+private:
+
+    int edgeIndexFromVertexIndizes(int v1, int v2) const;
 
 private:
 
