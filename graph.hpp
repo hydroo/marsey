@@ -49,7 +49,7 @@ private:
 
     int m_vertexCount;
     int m_colorCount;
-    int m_coloringMatrixSize;
+    int m_edgeCount;
 
     Color *coloringMatrix;
 

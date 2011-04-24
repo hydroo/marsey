@@ -17,24 +17,24 @@ using std::string;
 Graph::Graph(int _vertexCount, int _colorCount) : 
         m_vertexCount(_vertexCount),
         m_colorCount(_colorCount),
-        m_coloringMatrixSize(m_vertexCount*(m_vertexCount - 1)/2) {
+        m_edgeCount(m_vertexCount*(m_vertexCount - 1)/2) {
 
     ASSERT(m_colorCount >= 2 && m_colorCount <= 0xff);
     ASSERT(m_vertexCount <= 50);
 
-    this->coloringMatrix = (Color*) malloc(m_coloringMatrixSize);
+    this->coloringMatrix = (Color*) malloc(m_edgeCount);
 
-    memset(this->coloringMatrix, 0, m_coloringMatrixSize);
+    memset(this->coloringMatrix, 0, m_edgeCount);
 }
 
 Graph::Graph(const Graph& src) :
         m_vertexCount(src.m_vertexCount),
         m_colorCount(src.m_colorCount),
-        m_coloringMatrixSize(m_vertexCount*(m_vertexCount - 1)/2) {
+        m_edgeCount(m_vertexCount*(m_vertexCount - 1)/2) {
 
-    this->coloringMatrix = (Color*) malloc(m_coloringMatrixSize);
+    this->coloringMatrix = (Color*) malloc(m_edgeCount);
 
-    memcpy(this->coloringMatrix, src.coloringMatrix, m_coloringMatrixSize);
+    memcpy(this->coloringMatrix, src.coloringMatrix, m_edgeCount);
 
 }
 
@@ -45,7 +45,7 @@ int Graph::vertexCount() const {
 
 
 int Graph::edgeCount() const {
-    return m_coloringMatrixSize;
+    return m_edgeCount;
 }
 
 
