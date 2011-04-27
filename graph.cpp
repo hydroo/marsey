@@ -123,11 +123,63 @@ set<int> Graph::completeSubgraph(int k, Color color) const {
     ASSERT(k >= 1 && k <= m_vertexCount);
     ASSERT(color < m_colorCount);
 
+    set<int> possibleVertizes;
+
+    for (int v = 0; v < vertexCount(); v += 1) {
+        if (vertexDegree(v, color) >= k-1) {
+            possibleVertizes.insert(v);
+        }
+    }
+
+    if (possibleVertizes.size() < k) {
+        return set<int>();
+    }
+
     set<int> ret;
 
-    // TODO
+    auto i = possibleVertizes.begin();
+    set<int> current;
+    current.insert(*i);
 
-    return set<int>({1});
+    ret = completeSubgraphRecursive(*i, current, possibleVertizes, k, color);
+    if (ret.empty() == false) { return ret; }
+    ret = completeSubgraphRecursive(*i, set<int>(), possibleVertizes, k, color);
+    if (ret.empty() == false) { return ret; }
+
+
+    return set<int>();
+}
+
+
+// returns a complete subgraph as a set of vertizes or set<int>()
+set<int> Graph::completeSubgraphRecursive(int lastVertex, const set<int>& current,
+        const set<int>& possibleVertizes, int k, Color color) const {
+
+    if (int(current.size()) == k) {
+        if (isCompleteSubgraph(current, color) == true) {
+            return current;
+        } else {
+            return set<int>();
+        }
+    }
+
+
+    auto nextVertex = ++possibleVertizes.find(lastVertex);
+
+    if (nextVertex == possibleVertizes.end()) {
+        return set<int>();
+    }
+
+    set<int> currentCopy = current;
+    currentCopy.insert(*nextVertex);
+
+    set<int> ret;
+    ret = completeSubgraphRecursive(*nextVertex, currentCopy, possibleVertizes, k, color);
+    if (ret.empty() == false) { return ret; }
+    ret = completeSubgraphRecursive(*nextVertex, current, possibleVertizes, k, color);
+    if (ret.empty() == false) { return ret; }
+
+    return set<int>();
 }
 
 

@@ -32,6 +32,11 @@ public:
 
 
     bool isCompleteSubgraph(const std::set<int>& vertizes, Color color) const;
+private:
+    std::set<int> completeSubgraphRecursive(int lastVertex, const std::set<int>& current,
+            const std::set<int>& possibleVertizes, int k, Color color) const;
+public:
+
     // returns vertizes of the sub graph
     std::set<int> completeSubgraph(int k, Color color) const;
 
