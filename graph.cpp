@@ -57,6 +57,7 @@ int Graph::colorCount() const {
 
 Color Graph::edgeColor(int v1, int v2) const {
 
+    ASSERT(v1 != v2);
     ASSERT(v1 >= 0 && v1 < m_vertexCount);
     ASSERT(v2 >= 0 && v2 < m_vertexCount);
 
@@ -220,6 +221,7 @@ int Graph::edgeIndexFromVertexIndizes(int v1, int v2) const {
 
     // currently duplicate, but I leave the assertions in
     // in case I forget to add them in later code
+    ASSERT(v1 != v2);
     ASSERT(v1 >= 0 && v1 < m_vertexCount);
     ASSERT(v2 >= 0 && v2 < m_vertexCount);
 

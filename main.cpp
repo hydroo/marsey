@@ -54,7 +54,7 @@ bool coloringsRecursive(const Graph& graph, int currentEdge, const std::vector<i
             }
 
             auto completeSubgraph = graph.completeSubgraph(p[i],i);
-            if (completeSubgraph != std::set<int>()) {
+            if (completeSubgraph.empty() == false) {
 
 
                 //std::ostringstream fileNameStream;
