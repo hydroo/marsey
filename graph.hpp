@@ -30,6 +30,8 @@ public:
 
     int vertexDegree(int v, Color color) const;
 
+
+    bool isCompleteSubgraph(const std::set<int>& vertizes, Color color) const;
     // returns vertizes of the sub graph
     std::set<int> completeSubgraph(int k, Color color) const;
 

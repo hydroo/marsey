@@ -101,6 +101,22 @@ int Graph::vertexDegree(int v1, Color color) const {
     return sum;
 }
 
+bool Graph::isCompleteSubgraph(const std::set<int>& vertizes, Color color) const {
+
+    for (auto v = vertizes.begin(); v != vertizes.end(); ++v) {
+
+        for (auto w = ++vertizes.find(*v); w != vertizes.end(); ++w) {
+
+            if (edgeColor(*v, *w) != color) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+
 
 set<int> Graph::completeSubgraph(int k, Color color) const {
 
