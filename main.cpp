@@ -1,6 +1,8 @@
 #include "graph.hpp"
 #include "debug.hpp"
 
+#include <sys/time.h>
+
 #include <iostream>
 #include <fstream>
 #include <set>
@@ -20,13 +22,11 @@ int findR(const std::vector<int>& p) {
 
     for (int vertexCount = 1; ; vertexCount += 1) {
 
-        bool hasCompleteSubGraph;
-
         Graph graph(vertexCount, colorCount);
 
         uint64_t count = 0;
 
-        hasCompleteSubGraph = coloringsRecursive(graph, 0, p, &count);
+        bool hasCompleteSubGraph = coloringsRecursive(graph, 0, p, &count);
 
         if (hasCompleteSubGraph == true) {
             return vertexCount;
@@ -48,6 +48,14 @@ bool coloringsRecursive(const Graph& graph, int currentEdge, const std::vector<i
     if (currentEdge == graph.edgeCount()) {
 
         *count += 1;
+
+        if (*count % 1000000 == 0) {
+
+            struct timeval t;
+            gettimeofday(&t, 0);
+
+            cout << graph.edgeCount() << " " << *count << " " << t.tv_sec << endl;
+        }
 
         for (int i = 0; i < int(p.size()); i += 1) {
 
@@ -117,31 +125,31 @@ bool coloringsRecursive(const Graph& graph, int currentEdge, const std::vector<i
 int main(int argc, char** argv) {
 
     std::set<std::vector<int>> parameters{
-        {1,1},
-        {1,2},
-        {1,3},
-        {1,4},
-        {1,5},
+        //{1,1},
+        //{1,2},
+        //{1,3},
+        //{1,4},
+        //{1,5},
 
-        {2,1},
-        {2,2},
-        {2,3},
-        {2,4},
-        {2,5},
+        //{2,1},
+        //{2,2},
+        //{2,3},
+        //{2,4},
+        //{2,5},
 
-        {3,1},
-        {3,2},
-        {3,3},
-        {3,4},
+        //{3,1},
+        //{3,2},
+        //{3,3},
+        {3,4}
         //{3,5},
 
-        {4,1},
-        {4,2},
-        {4,3},
+        //{4,1},
+        //{4,2},
+        //{4,3},
         //{4,4},
 
-        {5,1},
-        {5,2}
+        //{5,1},
+        //{5,2}
         //{5,3}
         };
 

@@ -152,6 +152,10 @@ set<int> Graph::completeSubgraph(int k, Color color) const {
 
 
 // returns a complete subgraph as a set of vertizes or set<int>()
+//
+// note: TODO computes all 0 to k sized vertex sets, before
+// discarding all 0 to k-1 sized sets with the first if.
+// Perhaps discarding the creation of these sets earlier pays of
 set<int> Graph::completeSubgraphRecursive(int lastVertex, const set<int>& current,
         const set<int>& possibleVertizes, int k, Color color) const {
 
