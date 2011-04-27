@@ -131,7 +131,7 @@ set<int> Graph::completeSubgraph(int k, Color color) const {
         }
     }
 
-    if (possibleVertizes.size() < k) {
+    if (int(possibleVertizes.size()) < k) {
         return set<int>();
     }
 
