@@ -19,6 +19,7 @@ int findR(const std::vector<int>& p) {
     int colorCount = p.size();
 
     for (int vertexCount = 1; ; vertexCount += 1) {
+
         bool hasCompleteSubGraph;
 
         Graph graph(vertexCount, colorCount);
@@ -41,6 +42,7 @@ int findR(const std::vector<int>& p) {
 // that is necessary (incredibly much)
 //
 // n := vertexCount
+//
 bool coloringsRecursive(const Graph& graph, int currentEdge, const std::vector<int>& p, uint64_t *count) {
 
     if (currentEdge == graph.edgeCount()) {
@@ -69,7 +71,7 @@ bool coloringsRecursive(const Graph& graph, int currentEdge, const std::vector<i
                 //fileNameStream.width(5);
                 //fileNameStream.fill('0');
                 //fileNameStream << *count;
-                //fileNameStream << ".dot";
+                //fileNameStream << "-true.dot";
 
                 //std::ofstream dotFile(fileNameStream.str());
                 //dotFile << graph.toDot();
@@ -78,6 +80,24 @@ bool coloringsRecursive(const Graph& graph, int currentEdge, const std::vector<i
                 return true;
             }
         }
+
+        //std::ostringstream fileNameStream;
+
+        //fileNameStream << "R-";
+        //for (auto q = p.begin(); q != p.end(); ++q) {
+        //    fileNameStream << *q << "-";
+        //}
+        //fileNameStream << "/";
+
+        //fileNameStream << graph.vertexCount() << ":";
+        //fileNameStream.width(5);
+        //fileNameStream.fill('0');
+        //fileNameStream << *count;
+        //fileNameStream << "-false.dot";
+
+        //std::ofstream dotFile(fileNameStream.str());
+        //dotFile << graph.toDot();
+        //dotFile.close();
 
         return false;
     }
@@ -113,16 +133,16 @@ int main(int argc, char** argv) {
         {3,2},
         {3,3},
         {3,4},
-        {3,5},
+        //{3,5},
 
         {4,1},
         {4,2},
         {4,3},
-        {4,4},
+        //{4,4},
 
         {5,1},
-        {5,2},
-        {5,3}
+        {5,2}
+        //{5,3}
         };
 
     for (auto p = parameters.begin(); p != parameters.end(); ++p) {
@@ -133,11 +153,6 @@ int main(int argc, char** argv) {
         cout << ") = ";
         cout << findR(*p) << endl;
     }
-
-
-    //std::ofstream dotFile("test.dot");
-    //dotFile << graph.toDot();
-    //dotFile.close();
 
     return 0;
 }
