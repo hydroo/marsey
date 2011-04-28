@@ -1,7 +1,7 @@
 CXX = g++
 INCLUDE =
 CXXFLAGS = -Wall -g -std=c++0x -DDEBUG $(INCLUDE)
-#CXXFLAGS = -Wall -g -std=c++0x $(INCLUDE)
+#CXXFLAGS = -Wall -std=c++0x $(INCLUDE)
 LN = g++
 LIBS =
 LFLAGS = $(LIBS)
