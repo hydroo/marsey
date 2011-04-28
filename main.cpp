@@ -47,6 +47,8 @@ bool coloringsRecursive(const Graph& graph, int currentEdge, const std::vector<i
 
     if (currentEdge == graph.edgeCount()) {
 
+        //graph.check();
+
         *count += 1;
 
         if (*count % 1000000 == 0) {

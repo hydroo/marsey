@@ -8,7 +8,7 @@
 
 
 
-typedef uint8_t Color;
+typedef int8_t Color;
 
 
 class Graph {
@@ -52,6 +52,10 @@ public:
     // TODO investigate how to resolve that
     std::string toDot() const;
 
+    // debug helper
+    // checks the consistency of all data stored in this instance/class
+    void check() const;
+
 private:
 
     int edgeIndexFromVertexIndizes(int v1, int v2) const;
@@ -62,7 +66,7 @@ private:
     int m_colorCount;
     int m_edgeCount;
 
-    Color *coloringMatrix;
+    Color *m_coloringMatrix;
 
 };
 
