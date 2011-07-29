@@ -269,12 +269,21 @@ std::string Graph::vertexListToString() const {
 
 
 std::string Graph::toDot() const {
+
+    const float pi = 3.14159265358979323846;
+
     ostringstream o;
 
     o << "graph G {";
 
     for (int v = 0; v < m_vertexCount; v += 1) {
-        o << v << " [shape=circle]" << endl;
+
+        float y = 5*sin(pi * 2.0f * float(v) / float(m_vertexCount));
+        float x = 5*cos(pi * 2.0f * float(v) / float(m_vertexCount));
+
+        o << v << " [shape=circle,"
+                <<" pos=\"" << std::fixed << y << "," << std::fixed << x << "!\"];"
+                << endl;
     }
 
     for (int v1 = 0; v1 < m_vertexCount; v1 += 1) {
